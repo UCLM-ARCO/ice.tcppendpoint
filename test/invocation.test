@@ -1,17 +1,21 @@
 # -*- mode: python; coding: utf-8 -*-
 
-s = Daemon('./server.py --Ice.Config=config', save_stdout = True,
-           id = 'Server', desc = 'Servidor',
-           env = {'LD_LIBRARY_PATH':'/usr/local/lib'})
-s.pre += FileExists('config')
-s.pre += FileExists('/usr/local/lib/libIceTCPP.so.33')
-s.pre += Not(Poll(OpenPort(9999)))
+t = Template(save_stdout=True,
+             env={'LD_LIBRARY_PATH':'/usr/local/lib'})
+
+s = Daemon('./server.py --Ice.Config=$dirname/config',
+           desc='Servidor', template=[t])
+
+conds = [FileExists('$dirname/config'),
+         FileExists('/usr/local/lib/libIceTCPP.so.33')]
+
+s.pre += conds
+s.pre += Not(OpenPort(9999))
 s.post += FileContains(s.stdout, 'Hola Mundo')
 
-t = Test('./client.py --Ice.Config=config', save_stdout = True,
-         id = 'Client', desc = 'Cliente',
-         env = {'LD_LIBRARY_PATH':'/usr/local/lib'})
-t.pre += Poll(OpenPort(9999))
-t.pre += Poll(TaskRunning(get_task('Server')))
-t.post += FileContains(t.stdout, 'Mensaje enviado')
+c = Test('./client.py --Ice.Config=$dirname/config',
+         desc = 'Cliente', template=[t])
+c.pre += [x.clone() for x in conds]
+c.pre += Poll(TaskRunning(s))
+c.post += FileContains(c.stdout, 'Mensaje enviado')
 
