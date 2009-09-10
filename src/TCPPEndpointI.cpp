@@ -351,7 +351,7 @@ IceTCPP::TCPPEndpointI::expand() const
 bool
 IceTCPP::TCPPEndpointI::equivalent(const IceInternal::EndpointIPtr& endpoint) const
 {
-  const TCPPEndpointI* btEndpointI = dynamic_cast<const BTEndpointI*>(endpoint.get());
+  const TCPPEndpointI* btEndpointI = dynamic_cast<const TCPPEndpointI*>(endpoint.get());
   if(!btEndpointI)
     {
       return false;

@@ -7,8 +7,8 @@
 //
 // **********************************************************************
 
-#ifndef ICE_BT_ACCEPTOR_H
-#define ICE_BT_ACCEPTOR_H
+#ifndef ICE_TCPP_ACCEPTOR_H
+#define ICE_TCPP_ACCEPTOR_H
 
 #include <Ice/TransceiverF.h>
 #include <InstanceF.h>
@@ -20,12 +20,12 @@
 #   include <sys/socket.h> // For struct sockaddr_storage
 #endif
 
-namespace IceBT
+namespace IceTCPP
 {
 
-  class BTEndpoint;
+  class TCPPEndpoint;
 
-  class BTAcceptor : public IceInternal::Acceptor
+  class TCPPAcceptor : public IceInternal::Acceptor
   {
   public:
     
@@ -39,9 +39,9 @@ namespace IceBT
     
   private:
     
-    BTAcceptor(const InstancePtr&, const std::string&, int);
-    virtual ~BTAcceptor();
-    friend class BTEndpointI;
+    TCPPAcceptor(const InstancePtr&, const std::string&, int);
+    virtual ~TCPPAcceptor();
+    friend class TCPPEndpointI;
     
     const InstancePtr _instance;
     const std::string _adapterName;

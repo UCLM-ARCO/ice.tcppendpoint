@@ -74,7 +74,7 @@ IceTCPP::TCPPAcceptor::accept()
   //     out << "accepted tcp connection\n" << fdToString(fd);
   //   }
   
-  return new BTTransceiver(_instance, fd, true);
+  return new TCPPTransceiver(_instance, fd, true);
 }
 
 string

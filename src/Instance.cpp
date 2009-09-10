@@ -67,11 +67,6 @@ extern "C"
         // Select protocols.
         //
         StringSeq protocols = properties->getPropertyAsList(propPrefix + "Protocols");
-        if(!protocols.empty())
-	  {
-	    parseProtocols(protocols);
-	  }
-	
       }
     catch(...)
       {
