@@ -1,0 +1,15 @@
+# -*- mode: python; coding: utf-8 -*-
+
+s = Daemon('./server.py --Ice.Config=config', save_stdout = True,
+           id = 'Server', desc = 'Servidor')
+s.pre += FileExists('config')
+s.pre += FileExists('/usr/lib/libIceBT.so.33')
+s.pre += Not(Poll(OpenPort(9999)))
+s.post += FileContains(s.stdout, 'Hola Mundo')
+
+t = Test('./client.py --Ice.Config=config', save_stdout = True,
+         id = 'Client', desc = 'Cliente')
+t.pre += Poll(OpenPort(9999))
+t.pre += Poll(TaskRunning(get_task('Server')))
+t.post += FileContains(t.stdout, 'Mensaje enviado')
+

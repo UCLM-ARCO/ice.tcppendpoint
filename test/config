@@ -1,0 +1,2 @@
+Ice.Plugin.IceBT=IceTCPP:createIceTCPP
+OA.Endpoints=tcpp -h 127.0.0.1 -p 9999

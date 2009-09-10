@@ -1,0 +1,9 @@
+This code shows an implementation of a plugin that consists on an endpoint
+that uses TCP as the transport mechanism. The 'new' endpoint is called TCPP.
+
+To use TCPP endpoints, define the following property on both client and
+server sides:
+
+	Ice.Plugin.IceTCPP=IceTCPP:createIceTCPP
+
+They are two-way endpoints.
