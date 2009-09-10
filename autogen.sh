@@ -20,8 +20,10 @@ find -type f \( -name missing -o -name install-sh -o -name mkinstalldirs \
 	-o -name depcomp -o -name ltmain.sh -o -name configure \
 	-o -name config.sub -o -name config.guess \
 	-o -name Makefile.in \) -print0 | xargs -0 rm -f
+rm -rf m4
 
 echo Running autoreconf...
+mkdir m4
 autoreconf --force --install
 
 # For the Debian package build
